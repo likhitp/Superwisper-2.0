@@ -54,6 +54,9 @@ class AudioManager {
       this.audioPlayer.src = audioUrl;
       this.audioPlayer.style.display = 'block';
       
+      // Auto play the audio
+      this.audioPlayer.play().catch(e => console.error('Auto play failed:', e));
+      
       this.audioPlayer.onended = () => {
         URL.revokeObjectURL(audioUrl);
         resolve();
