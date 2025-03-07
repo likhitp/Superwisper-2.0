@@ -1,26 +1,36 @@
 {
-  "name": "voice-assistant-phase1",
-  "version": "1.0.0",
-  "description": "Voice Assistant Proof of Concept - Phase 1",
+  "name": "superwisper",
+  "version": "2.0.0",
+  "description": "Voice Assistant with AI Conversation Modes",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "NODE_ENV=development electron .",
+    "build": "electron-builder"
   },
-  "keywords": [
-    "electron",
-    "voice",
-    "assistant",
-    "deepgram",
-    "openai"
-  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@deepgram/sdk": "^3.11.2",
-    "dotenv": "^16.4.7",
-    "electron": "^29.1.0",
-    "mic": "^2.1.2",
-    "openai": "^4.24.1"
+    "dotenv": "^16.3.1",
+    "electron-store": "^8.1.0",
+    "openai": "^4.20.0"
+  },
+  "devDependencies": {
+    "electron": "^28.0.0",
+    "electron-builder": "^24.6.4"
+  },
+  "build": {
+    "appId": "com.superwisper.app",
+    "productName": "Superwisper",
+    "mac": {
+      "category": "public.app-category.productivity"
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "linux": {
+      "target": "AppImage"
+    }
   }
 }

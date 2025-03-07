@@ -1,80 +1,68 @@
-# Voice Assistant - Phase 1
+# Superwisper 2.0
 
-A proof-of-concept voice-based chatbot for Windows, built using Electron, Deepgram, and OpenAI.
+A voice assistant application with multiple AI conversation modes.
 
 ## Features
 
-- Simple UI with Start/Stop recording buttons
-- Voice recording from your microphone
-- Speech-to-text conversion using Deepgram
-- AI response generation using OpenAI
-- Text-to-speech conversion using Deepgram
-- Audio playback of AI responses
+- **Voice-to-Text**: Record your voice and convert it to text
+- **AI Processing**: Process your text with OpenAI's powerful language models
+- **Text-to-Speech**: Convert AI responses back to speech
+- **Multiple Conversation Modes**:
+  - **General Conversation**: Balanced between formality and friendliness
+  - **Professional Mode**: More formal and structured responses
+  - **Creative Mode**: More creative and exploratory responses
 
-## Prerequisites
-
-Before running this application, you need to:
-
-1. Sign up for a [Deepgram account](https://console.deepgram.com/signup) and get an API key
-2. Sign up for an [OpenAI account](https://platform.openai.com) and get an API key
-3. Have [Node.js](https://nodejs.org/) installed (version 14 or higher)
-
-## Setup
+## Installation
 
 1. Clone this repository
 2. Install dependencies:
    ```
    npm install
    ```
-3. Create a `.env` file in the root directory with your API keys:
+3. Set up your OpenAI API key as an environment variable:
    ```
-   DEEPGRAM_API_KEY=your_deepgram_api_key
-   OPENAI_API_KEY=your_openai_api_key
+   export OPENAI_API_KEY=your_api_key_here
+   ```
+4. Start the application:
+   ```
+   npm start
    ```
 
-## Running the Application
+## Development
 
-To start the application, run:
+To run the application in development mode with DevTools:
 
 ```
-npm start
+npm run dev
 ```
 
-## How to Use
+## Building
 
-1. Click the "Start Recording" button to begin recording your voice
-2. Speak your question or command
-3. Click the "Stop Recording" button when you're finished speaking
-4. Wait for the application to process your speech and generate a response
-5. Listen to the AI's spoken response
+To build the application for distribution:
 
-## Technology Stack
+```
+npm run build
+```
 
-- **Electron**: JavaScript-based desktop framework
-- **Deepgram**: Speech-to-text and text-to-speech processing
-- **OpenAI**: AI response generation
-- **Web Audio API**: Browser-based audio recording
+## Architecture
 
-## Project Structure
+The application follows a modular architecture:
 
-- `main.js`: Electron main process
-- `index.html`: UI layout
-- `renderer.js`: Audio recording and processing logic
-- `preload.js`: Preload script for potential IPC communication
+- **Main Process**: Handles the application lifecycle and integrates with backend services
+- **Renderer Process**: Handles UI interactions
+- **OpenAI Service**: Handles interactions with OpenAI API
+- **Configuration**: Central location for application settings
 
-## Limitations
+## User Interface
 
-This is a proof-of-concept application with the following limitations:
+The user interface provides:
 
-- No persistent conversation history
-- Basic error handling
-- Limited UI features
-- Not optimized for performance
+- Buttons to start and stop recording
+- Prompt selection buttons to switch between conversation modes
+- Status indicators for recording and processing
+- Transcript display for conversation history
+- Audio player for speech output
 
-## Future Enhancements (for Phase 2)
+## License
 
-- Add conversation history
-- Improve UI with transcription display
-- Add settings for voice selection
-- Implement better error handling
-- Optimize performance 
+ISC 
