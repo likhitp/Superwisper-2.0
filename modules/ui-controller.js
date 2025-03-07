@@ -229,7 +229,18 @@ class UIController {
     label.textContent = 'Assistant:';
     
     const content = document.createElement('div');
-    content.textContent = message;
+    
+    // Extract only the content between <start> and <end> tags
+    let displayText = message;
+    const startTagIndex = message.indexOf('<start>');
+    const endTagIndex = message.indexOf('<end>');
+    
+    if (startTagIndex !== -1 && endTagIndex !== -1 && endTagIndex > startTagIndex) {
+      // Extract text between <start> and <end> tags
+      displayText = message.substring(startTagIndex + 7, endTagIndex).trim();
+    }
+    
+    content.textContent = displayText;
     
     messageDiv.appendChild(label);
     messageDiv.appendChild(content);
@@ -247,7 +258,29 @@ class UIController {
     this.uiState.updateStatus('Converting to speech...');
     
     try {
-      const audioBlob = await this.deepgramService.textToSpeech(transcript);
+      // Extract text outside of <start> and <end> tags
+      let textToSpeak = transcript;
+      
+      // Check if the transcript contains <start> and <end> tags
+      const startTagIndex = transcript.indexOf('<start>');
+      const endTagIndex = transcript.indexOf('<end>');
+      
+      if (startTagIndex !== -1 && endTagIndex !== -1 && endTagIndex > startTagIndex) {
+        // Extract text after the </end> tag
+        const textAfterEndTag = transcript.substring(endTagIndex + 6).trim();
+        
+        if (textAfterEndTag) {
+          // Use only the text after the </end> tag for TTS
+          textToSpeak = textAfterEndTag;
+        } else {
+          // If there's no text after </end>, don't process TTS
+          this.uiState.updateStatus('No text to speak outside of tags');
+          this.uiState.setProcessingState(false);
+          return;
+        }
+      }
+      
+      const audioBlob = await this.deepgramService.textToSpeech(textToSpeak);
       await this.audioManager.playAudioResponse(audioBlob);
       this.uiState.updateStatus('Audio ready to play');
     } catch (error) {
